@@ -11,11 +11,12 @@ class SeleniumPython1Test(unittest.TestCase):
         self.driver.close()
 
     def test_search_Pypi(self):
-        self.driver.get("http://python.org")
-        assert "Python" in self.driver.title
-        self.driver.find_element_by_class_name('pypi-meta').click()
-        assert "PyPI" in self.driver.title
-        elemSearch = self.driver.find_element_by_name("term")
+        driver = self.driver
+        driver.get("http://python.org")
+        assert "Python" in driver.title
+        driver.find_element_by_class_name('pypi-meta').click()
+        assert "PyPI" in driver.title
+        elemSearch = driver.find_element_by_name("term")
         elemSearch.send_keys("appium")
         elemSearch.send_keys(Keys.ENTER)
         #driver.find_element_by_link_text('Login').click()

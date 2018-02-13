@@ -3,7 +3,7 @@ print("Hello World")
 name = 'Yesid'
 surname = 'Anaya'
 
-greeting = f"Nice to meet you {name} {surname}"
+greeting = "Nice to meet you {0} {1}".format(name, surname)
 print(greeting)
 
 print(sys.getdefaultencoding())
