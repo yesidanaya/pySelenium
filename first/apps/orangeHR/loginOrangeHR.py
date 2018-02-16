@@ -20,6 +20,12 @@ class LoginOrangeHR:
         loginElement = self.driver.find_element_by_id(id_login)
         loginElement.click()
 
+    def do_successful_login(self):
+        self.go_to(url='http://opensource.demo.orangehrmlive.com/')
+        self.input_user(id_user_input='txtUsername', userName='Admin')
+        self.input_passwd(id_passwd='txtPassword', passwd='admin')
+        self.do_login(id_login='btnLogin')
+
     def exit(self):
         self.driver.quit()
 
