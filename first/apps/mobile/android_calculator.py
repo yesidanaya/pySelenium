@@ -1,0 +1,42 @@
+import os
+import unittest
+
+from appium import webdriver
+from appium.webdriver.common.touch_action import TouchAction
+from appium.webdriver.common.multi_action import MultiAction
+
+from time import sleep
+
+# Returns abs path relative to this file and not cwd
+
+class ComplexAndroidTests(unittest.TestCase):
+    def setUp(self):
+        desired_caps = {}
+        desired_caps['platformName'] = 'Android'
+        desired_caps['platformVersion'] = '4.4'
+        desired_caps['deviceName'] = 'Android Emulator'
+        desired_caps['appPackage'] = 'com.android.calculator2'
+        desired_caps['appActivity'] = 'com.android.calculator2.Calculator'
+
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+
+    def tearDown(self):
+        self.driver.quit()
+
+    def test_calculator_operation(self):
+        # pause a moment, so xml generation can occur
+        sleep(2)
+        self.driver.find_element_by_id('com.android.calculator2:id/digit9').click()
+        self.driver.find_element_by_id('com.android.calculator2:id/plus').click()
+        self.driver.find_element_by_id('com.android.calculator2:id/digit5').click()
+        self.driver.find_element_by_id('com.android.calculator2:id/equal').click()
+
+        #verify the result
+        editor_result = self.driver.find_element_by_class_name('android.widget.EditText')
+        assert '14' == editor_result.text
+
+               
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(ComplexAndroidTests)
+    unittest.TextTestRunner(verbosity=2).run(suite)
