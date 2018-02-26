@@ -1,15 +1,16 @@
-import os
 import unittest
+from time import sleep
 
 from appium import webdriver
-from appium.webdriver.common.touch_action import TouchAction
-from appium.webdriver.common.multi_action import MultiAction
 
-from time import sleep
 
 # Returns abs path relative to this file and not cwd
 
+
 class ComplexAndroidTests(unittest.TestCase):
+    """
+    Android Calculator Test.
+    """
     def setUp(self):
         desired_caps = {}
         desired_caps['platformName'] = 'Android'
@@ -31,11 +32,10 @@ class ComplexAndroidTests(unittest.TestCase):
         self.driver.find_element_by_id('com.android.calculator2:id/digit5').click()
         self.driver.find_element_by_id('com.android.calculator2:id/equal').click()
 
-        #verify the result
+        # verify the result
         editor_result = self.driver.find_element_by_class_name('android.widget.EditText')
         assert '14' == editor_result.text
 
-               
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(ComplexAndroidTests)
